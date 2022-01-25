@@ -1,3 +1,10 @@
-export const Message = (props)=> {
-    return (<h3>Message Text, {props.text}</h3>)
-} 
+import './styles.scss';
+
+export const Message = ({ text, myString }) => {
+ 
+  return (
+    <h3 className="header">
+      Message Text, {text} {myString}
+    </h3>
+  );
+};
