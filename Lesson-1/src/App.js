@@ -20,7 +20,7 @@ function App() {
         >
           Learn React
         </a>
-        <Message text={myText}/>
+        <Message myString="my string" text={myText}/>
 
       </header>
     </div>
