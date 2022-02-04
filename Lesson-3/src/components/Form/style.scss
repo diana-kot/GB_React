@@ -1,7 +1,8 @@
 
 .mes__content{
     display: flex;
-
+    justify-content: center;
+    align-items: baseline;
 }
 .mes__input{
     display: flex;
@@ -30,4 +31,8 @@
   &:hover {
     background-color: #0b1966;
   }
+
+  .MuiOutlinedInput-input {
+    height: 820px;
+  } 
 }
