@@ -1,18 +1,19 @@
-import "./App.css";
-import { AUTHORS } from "./utils/constants";
+import "../../App.css";
 import { useState, useEffect, useRef } from "react";
-import { Form } from "./components/Form";
-import { MessageList } from "./components/MessageList";
-import Header from "./components/Header/Header"
-import ChartList from "./components/ChartList/ChartList";
+import { AUTHORS } from "../../utils/constants";
+import { Form } from "../Form";
+import { MessageList } from "../MessageList";
+
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@emotion/react";
 import { cyan, green } from "@mui/material/colors";
+import { ChatList } from "../ChatList/ChatList";
+import { Navigate, useParams } from "react-router-dom";
 
-import avatar from "./img/multfilm_minion_14637.jpg"
-import Sergey from "./img/multfilm_minion_16711.jpg"
-import Tanya from "./img/multfilm_minion_17779.jpg"
-
+const chats = [{ id: "chat1" }];
+const messages = {
+  chat1: [],
+};
 
 const theme = createTheme({
   palette: {
@@ -24,16 +25,19 @@ const theme = createTheme({
   },
 });
 
+export function Chat() {
+  const params = useParams();
+  const { chatId } = params;
 
-function App() {
+  const [messageList, setMessageList] = useState({
+    chat1: [],
+    chat2: [],
+    chat3: [],
+  });
 
-  const [chats, setChat] = useState ([
-      { id: 1, name: "Avatar", img: avatar},
-      { id: 2, name: "Sergey", img: Sergey  },
-      { id: 3, name: "Tanya", img: Tanya },
-    ]);
+  
 
-  const [messageList, setMessageList] = useState([]);
+
   const messagesEnd = useRef();
 
   const handleAddMessage = (text) => {
@@ -46,14 +50,20 @@ function App() {
       author,
       id: `msg-${Date.now()}`,
     };
-    setMessageList((prevMessageList) => [...prevMessageList, newMsg]);
+    setMessageList((prevMessageList) => ({
+      ...prevMessageList,
+      [chatId]: [...prevMessageList[chatId], newMsg],
+    }));
   };
 
   useEffect(() => {
     messagesEnd.current?.scrollIntoView();
 
     let timeout;
-    if (messageList[messageList.length - 1]?.author === AUTHORS.ME) {
+    if (
+      messageList[chatId]?.[messageList[chatId]?.length - 1]?.author ===
+      AUTHORS.ME
+    ) {
       timeout = setTimeout(() => {
         sendMessage("Hi I am a BOT", AUTHORS.BOT);
       }, 1000);
@@ -67,19 +77,22 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (!messageList[chatId]) {
+    return <Navigate to="/chats" replace />;
+  }
+
   return (
     <ThemeProvider theme={theme}>
-      <Header/>
       <div className="App">
-        <ChartList chats={chats} />
-        <div className="App-content">
-          <MessageList messages={messageList} />
-          <div ref={messagesEnd} />
+        {/* <ChatList /> */}
+
+        <div>
+          <div className="App-content">
+            <MessageList messages={messageList[chatId]} />
+          </div>
+          <Form onSubmit={handleAddMessage} />
         </div>
-        <Form onSubmit={handleAddMessage} />
       </div>
     </ThemeProvider>
   );
 }
-
-export default App;
