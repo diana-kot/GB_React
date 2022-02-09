@@ -19,10 +19,6 @@ const chats = [
   { id: "chat2", name: "Chat2", img: Chat2 },
   { id: "chat3", name: "Chat3", img: Chat3 },
 ];
-// const [chatList, setChatList] = useState
-
-
-
 
 export const ChatList = () => (
   <>
@@ -36,9 +32,7 @@ export const ChatList = () => (
             <Avatar src={chat.img} />
           </ListItemAvatar>
           <Link to={`/chats/${chat.id}`}>{chat.name}</Link>
-          <button className="chat__button">
-            &times;
-          </button>
+          <button className="chat__button">&times;</button>
         </ListItem>
       ))}
     </List>

@@ -9,6 +9,7 @@ import { ThemeProvider } from "@emotion/react";
 import { cyan, green } from "@mui/material/colors";
 import { ChatList } from "../ChatList/ChatList";
 import { Navigate, useParams } from "react-router-dom";
+import AddChat from "../AddChat";
 
 const chats = [{ id: "chat1" }];
 const messages = {
@@ -35,8 +36,17 @@ export function Chat() {
     chat3: [],
   });
 
-  
 
+  function addchat(name) {
+      chats.concat([
+        {
+          name: name,
+          id: chats.length + 1,
+          img: '',
+          
+        },
+      ])
+  }
 
   const messagesEnd = useRef();
 
@@ -92,6 +102,7 @@ export function Chat() {
           </div>
           <Form onSubmit={handleAddMessage} />
         </div>
+        <AddChat onCreate={addchat} />
       </div>
     </ThemeProvider>
   );
