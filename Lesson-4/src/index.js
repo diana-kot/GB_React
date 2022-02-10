@@ -5,11 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Router } from "./components/Router";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Router />
-  </React.StrictMode>,
-  document.getElementById('root')
+ReactDOM.render(<App />,  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

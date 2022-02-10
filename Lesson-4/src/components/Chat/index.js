@@ -30,13 +30,16 @@ export function Chat() {
   const { chatId } = params;
 
   const [messageList, setMessageList] = useState({
-    chat1: [],
-    chat2: [],
+    chat1: [
+      { id: "m21", author: "Petter", text: "Hi!" },
+      { id: "m22", author: "Bot", text: "Good day!" },
+    ],
+    chat2: [
+      { id: "m11", author: "Alice", text: "Hello!" },
+      { id: "m12", author: "Bot", text: "Hi!" },
+    ],
     chat3: [],
   });
-
-  
-
 
   const messagesEnd = useRef();
 
@@ -46,9 +49,9 @@ export function Chat() {
 
   const sendMessage = (text, author) => {
     const newMsg = {
-      text,
-      author,
       id: `msg-${Date.now()}`,
+      author,
+      text,
     };
     setMessageList((prevMessageList) => ({
       ...prevMessageList,

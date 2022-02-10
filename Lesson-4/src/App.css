@@ -1,9 +1,11 @@
 .App {
   text-align: center;
+  
 }
 .App-content {
   max-height: 500px;
   overflow-y: auto;
+
 }
 
 .App-logo {

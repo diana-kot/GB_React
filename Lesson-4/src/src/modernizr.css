@@ -1,0 +1,26 @@
+.no-cssgradients .tab {
+	background-color: #0685b4;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.no-cssgradients .tab-active {
+	background-color: #fff;
+}
+.no-cssgradients .profile__btn {
+	background-color: #e68100;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.no-cssgradients .profile__interest-add_btn {
+	background-color: #393;
+	vertical-align: middle;
+	padding-top: 5px;
+}
+.no-cssgradients .profile__name input {
+	font: 18px arial;
+}
+.no-cssgradients .profile__inputs input {
+	font: 12px/20px arial;
+	padding: 2px;
+}
+
