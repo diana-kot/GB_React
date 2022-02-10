@@ -9,7 +9,6 @@ import { ThemeProvider } from "@emotion/react";
 import { cyan, green } from "@mui/material/colors";
 import { ChatList } from "../ChatList/ChatList";
 import { Navigate, useParams } from "react-router-dom";
-import AddChat from "../AddChat";
 
 const chats = [{ id: "chat1" }];
 const messages = {
@@ -31,22 +30,16 @@ export function Chat() {
   const { chatId } = params;
 
   const [messageList, setMessageList] = useState({
-    chat1: [],
-    chat2: [],
+    chat1: [
+      { id: "m21", author: "Petter", text: "Hi!" },
+      { id: "m22", author: "Bot", text: "Good day!" },
+    ],
+    chat2: [
+      { id: "m11", author: "Alice", text: "Hello!" },
+      { id: "m12", author: "Bot", text: "Hi!" },
+    ],
     chat3: [],
   });
-
-
-  function addchat(name) {
-      chats.concat([
-        {
-          name: name,
-          id: chats.length + 1,
-          img: '',
-          
-        },
-      ])
-  }
 
   const messagesEnd = useRef();
 
@@ -56,9 +49,9 @@ export function Chat() {
 
   const sendMessage = (text, author) => {
     const newMsg = {
-      text,
-      author,
       id: `msg-${Date.now()}`,
+      author,
+      text,
     };
     setMessageList((prevMessageList) => ({
       ...prevMessageList,
@@ -102,7 +95,6 @@ export function Chat() {
           </div>
           <Form onSubmit={handleAddMessage} />
         </div>
-        <AddChat onCreate={addchat} />
       </div>
     </ThemeProvider>
   );
