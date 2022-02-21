@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, Link, NavLink } from "react-router-dom";
 import App from "../../App";
 import { Chat } from "../Chat";
 import { ChatList } from "../ChatList/ChatList";
-import { Profile } from "../Profile/index";
+import Profile from '../Profile'
 import "../Router/style.scss";
 import { MenuItem } from "@mui/material";
 import Box from "@mui/material/Box";
