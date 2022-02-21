@@ -1,0 +1,314 @@
+.profile {
+	content: "";
+	display: table;
+
+	clear: both;
+
+	box-sizing: border-box;
+
+	background: #fff;
+
+	min-height: 100px;
+	width: 100%;
+
+	padding: 20px 15px 20px 20px;
+
+	box-shadow: 0 .5px 3px 0 #888;
+
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+.profile__avatar {
+	width: 150px;
+
+	float: left;
+}
+
+.profile__img {
+	width: 100%;
+	height: 180px;
+
+	border-radius: 5px;
+
+	overflow: hidden;
+
+	position: relative;
+
+	margin-bottom: 8px;
+}
+
+.profile__img img {
+	height: auto;
+	width: 100%;
+}
+
+.profile_img-shadow {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	width: 100%;
+	height: 180px;
+
+	border-radius: 5px;
+	box-shadow: inset 0px 0px 10px 0 rgba(20, 20, 20, .5);
+}
+
+.profile__btn {
+	display: inline-block;
+
+	width: 100%;
+
+	background: linear-gradient(#e68100, #e65300);
+	border: none;
+	box-shadow: 0 1px 1px 0 #666;
+
+	border-radius: 3px;
+
+	font: .9rem/2rem arial;
+	color: #fff;
+	text-shadow: 0 -.7px #333;
+
+	cursor: pointer;
+}
+
+.profile__info {
+	display: inline-block;
+
+	width: calc(100% - 150px);
+
+	box-sizing: border-box;
+
+	padding: 2px 0 0 20px;
+
+	float: right;
+}
+
+.profile__info input {
+	display: block;
+
+	width: 100%;
+
+	border: none;
+
+	cursor: pointer;
+
+	font-family: arial;
+}
+.profile__info input:focus {
+	outline: none;
+	background-color: #f2f5f9;
+
+	cursor: text;
+}
+.profile__info input:hover {
+	background-color: #f2f5f9;
+}
+
+.profile__name input {
+	font: 1.5rem arial;
+	color: #000;
+}
+
+.profile__city {
+	text-align: left;
+
+	margin-bottom: 25px;
+}
+.profile__city span,
+.profile__city input {
+	font-size: .8rem;
+	color: #757575;
+}
+.profile__city input {
+	display: inline-block;
+	max-width: 90%;
+}
+
+.profile__titles {
+	display: inline-block;
+	width: 50%;
+
+	text-align: left;
+
+	box-sizing: border-box;
+
+	margin-bottom: 25px;
+}
+.profile__titles span {
+	display: block;
+
+	font: bold .8rem/1.5rem arial;
+}
+.profile__inputs {
+	display: inline-block;
+	width: 50%;
+
+	box-sizing: border-box;
+}
+
+.profile__inputs input {
+	display: block;
+
+	box-sizing: border-box;
+	padding: 0 0 0 5px;
+
+	font: .8rem/1.5rem arial;
+}
+
+.profile__email input {
+	color: #1574af;
+
+	text-decoration: underline;
+}
+
+.profile__interests_header {
+	display: block;
+
+	font: bold .8rem/1.5rem arial;
+	text-align: left;
+}
+
+.profile__interests_btns {
+	text-align: left;
+
+	padding-top: 10px;
+
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.profile__interest {
+	font: .9rem arial;
+	color: #1574af;
+
+	box-sizing: border-box;
+	padding: 5px 10px;
+	border: 1px solid #d5d5d5;
+	margin-right: 3px;
+	margin-bottom: 5px;
+
+	border-radius: 2px;
+
+	cursor: pointer;
+}
+.profile__interest:hover {
+	color: #000;
+	background-color: #f3f3f3;
+}
+
+.profile__interest-add {
+	width: 100%;
+	
+	text-align: left;
+
+	margin-top: 20px;
+}
+
+.profile__interest-add > span {
+	display: inline-block;
+
+	font: .8rem/2rem arial;
+
+	background-color: #fff;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+
+	padding: 0 10px;
+
+	position: relative;
+
+	box-shadow: 0 0.5px 1px 0 #666;
+
+	z-index: 5;
+}
+
+.profile__interest-add > span:after {
+	content: '';
+	display: block;
+	width: 100%;
+	height: 5px;
+
+	position: absolute;
+	top: 100%;
+	left: 0;
+
+	background-color: #fff;
+
+	z-index: 7;
+}
+
+.profile__interest-add_block {
+	height: 50px;
+
+	box-sizing: border-box;
+	padding: 10px;
+
+	background-color: #fff;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	box-shadow: 0 0 1px 0 #666;
+}
+
+.profile__interest-add_block input {
+	display: inline-block;
+
+	width: 80%;
+	height: 100%;
+	box-sizing: border-box;
+
+	float: left;
+
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+
+	box-shadow: inset 0 0 .5px 0 rgba(20, 20, 20, .5);
+}
+.profile__interest-add_block input:focus {
+	outline: none;
+	border-color: #ccf;
+}
+
+.profile__interest-add_btn {
+	display: inline-block;
+
+	width: 20%;
+	height: 100%;
+	box-sizing: border-box;
+
+	float: right;
+	
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+
+	background: linear-gradient(#393, #181);
+
+	cursor: pointer;
+
+	font: .9rem/1.9rem arial;
+	color: #fff;
+	text-align: center;
+}
+
+@media screen and (max-width: 550px) {
+
+	.profile__avatar {
+		width: 100%;
+
+		float: none;
+	}
+
+	.profile__info {
+		width: 100%;
+
+		padding: 0;
+		margin-top: 20px;
+
+		float: none;
+	}
+
+}
