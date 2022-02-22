@@ -1,51 +1,48 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Avatar from "@mui/material/Avatar";
 
-// Material UI
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Checkbox from '@material-ui/core/Checkbox';
 
-// Action Creator 
-import toggleOnlineAction from '../../store/actionCreators/toggle_online_action'
 
-// Selectors 
-import { getProfile } from '../../store/selectors/getProfile'
+import { changeUserName } from "../../store/actionCreators/profile";
+import { profileSelector } from "../../store/selectors/profile";
+import "./Profile.scss"
 
-const Profile = ({profile, toggleAction}) => {
+function Profile() {
+  const dispatch = useDispatch();
 
-  const toggleCheckbox = () => {
-    let copyObj = Object.assign({}, profile);
-    copyObj.online = !profile.online
-    toggleAction(copyObj)
-  }
+  const { userName, age } = useSelector(profileSelector);
+  const [value, setValue] = useState("");
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
+  const setUserName = useCallback(() => {
+    dispatch(changeUserName(value));
+  }, [dispatch, value]);
 
   return (
-    <Container maxWidth="sm">
-      <Typography component="h1" variant="h3">Profile</Typography>
-      <Typography variant="body1">{profile.name}</Typography>
-      <Typography variant="body1">{profile.age}</Typography>
-      <Typography variant="body1">{profile.online ? 'Online' : 'Offline'}</Typography>
-      <Checkbox
-        onClick={() => toggleCheckbox()}
-        checked={profile.online}
-        color="primary"
-        inputProps={{ 'aria-label': 'secondary checkbox' }}
-      />
-    </Container>
+    <div className="profile-page">
+    <div className="profile-info">
+        <h2>Profile</h2>
+        <Avatar sizes="large" src="/broken-image.jpg" />
+        <div className="profile-age name">
+        <div variant="span" style={{ fontWeight: 700 }}>Name: </div>
+        <div>{ userName }</div>
+        </div>
+        <div className="profile-age">
+        <div variant="span" style={{ fontWeight: 700 }}>Age: </div>
+        <div variant="span">{age}</div>
+        </div>
+       
+        <div className="acount-rename">
+            <input value={value} onChange={handleChange} type="text" />
+            <button className="rename-btn" onClick={setUserName}>Rename</button>
+        </div>
+    </div>
+</div>
   );
 }
 
-const mapStateToProps = (store) => {
-  return {
-    profile: getProfile(store)
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    toggleAction: (payload) => dispatch(toggleOnlineAction(payload))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default Profile;

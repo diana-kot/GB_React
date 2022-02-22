@@ -1,21 +1,25 @@
-import React from "react";
-import PropTypes from "prop-types";
-import "./styles.scss";
+import PropTypes from 'prop-types'
+import React from 'react'
 
+function Message(props) {
+    const { nick = '1234id', render = () => {} /* lodash.noop */ } = props
 
-export const Message = ({ text, author }) => {
-  return (
-    <div className="message-list">
-      <div className={author === "me" ? "message" : "answer" }>
-        {author}: {text}
-      </div>
-    </div>
-  );
-};
+    return (
+        <p id={nick}>
+            {props.author}: {props.text}
+            <br />
+            {render({ className: 'message__postscriptum' })}
+        </p>
+    )
+}
 
 Message.propTypes = {
-  text: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.number]),
-  author: PropTypes.string.isRequired,
-};
+    nick: PropTypes.string,
+    author: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+}
+Message.defaultProps = {}
+
+export default Message
 
 

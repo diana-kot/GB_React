@@ -1,101 +1,57 @@
-import "../../App.css";
-import { useState, useEffect, useRef } from "react";
-import { AUTHORS } from "../../utils/constants";
-import { Form } from "../Form";
-import { MessageList } from "../MessageList";
+import React, {useEffect, useState} from 'react'
+import {useNavigate, useParams} from "react-router-dom";
+// import s from "./Chat.module.css";
+import {Form} from "../Form/index";
+import Message from "../Message/index";
+import {useDispatch, useSelector} from "react-redux";
+import {messagesSelector} from "../../store/selectors/messages";
+import {addMessage, deleteChatMessages} from "../../store/actionCreators/messages";
+import {deleteChat} from "../../store/actionCreators/chats";
+import Button from "@material-ui/core/Button/Button";
 
-import { createTheme } from "@mui/material/styles";
-import { ThemeProvider } from "@emotion/react";
-import { cyan, green } from "@mui/material/colors";
-import { ChatList } from "../ChatList/ChatList";
-import { Navigate, useParams } from "react-router-dom";
+export const Chat = () => {
+    const dispatch = useDispatch()
+    const {chatId} = useParams()
+    const navigate = useNavigate()
 
-const chats = [{ id: "chat1" }];
-const messages = {
-  chat1: [],
-};
+    const messageList = useSelector(messagesSelector)
 
-const theme = createTheme({
-  palette: {
-    primary: cyan,
-    secondary: green,
-  },
-  typography: {
-    fontSize: 14,
-  },
-});
+    useEffect(() => {
+        let timeout
+        if(messageList[chatId][messageList[chatId]?.length -1]?.author === 'me') {
+            timeout = setTimeout(() => {
+                dispatch(addMessage(chatId,
+                    {text: `Your message is: ${messageList[chatId][messageList[chatId].length-1].text}`, author: 'robot', id: `msg-${Date.now()}`}))
+            }, 1500)
+        }
 
-export function Chat() {
-  const params = useParams();
-  const { chatId } = params;
+        return () => clearTimeout(timeout)
+    }, [messageList])
 
-  const [messageList, setMessageList] = useState({
-    chat1: [
-      { id: "m21", author: "Petter", text: "Hi!" },
-      { id: "m22", author: "Bot", text: "Good day!" },
-    ],
-    chat2: [
-      { id: "m11", author: "Alice", text: "Hello!" },
-      { id: "m12", author: "Bot", text: "Hi!" },
-    ],
-    chat3: [],
-  });
-
-  const messagesEnd = useRef();
-
-  const handleAddMessage = (text) => {
-    sendMessage(text, AUTHORS.ME);
-  };
-
-  const sendMessage = (text, author) => {
-    const newMsg = {
-      id: `msg-${Date.now()}`,
-      author,
-      text,
-    };
-    setMessageList((prevMessageList) => ({
-      ...prevMessageList,
-      [chatId]: [...prevMessageList[chatId], newMsg],
-    }));
-  };
-
-  useEffect(() => {
-    messagesEnd.current?.scrollIntoView();
-
-    let timeout;
-    if (
-      messageList[chatId]?.[messageList[chatId]?.length - 1]?.author ===
-      AUTHORS.ME
-    ) {
-      timeout = setTimeout(() => {
-        sendMessage("Hi I am a BOT", AUTHORS.BOT);
-      }, 1000);
+    const handleSubmit = (messageText) => {
+        dispatch(addMessage(chatId, {text: messageText, author: 'me', id: `msg-${Date.now()}`}))
     }
 
-    return () => clearTimeout(timeout);
-  }, [messageList]);
+    if (!messageList[chatId]) {
+        return navigate('../chats', {replace: true})
+    }
 
-  useEffect(() => {
-    console.log(messagesEnd);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const handleDelete = () => {
+        dispatch(deleteChatMessages(chatId))
+        dispatch(deleteChat(chatId))
+        navigate('/chats', {replace: true})
+    }
 
-  if (!messageList[chatId]) {
-    return <Navigate to="/chats" replace />;
-  }
-
-  return (
-    <ThemeProvider theme={theme}>
-      <div className="App">
-        {/* <ChatList /> */}
-
+    return (
         <div>
-          <div className="App-content">
-            <MessageList messages={messageList[chatId]} />
-          </div>
-          <Form onSubmit={handleAddMessage} />
+            <Button aria-label="delete" onClick={handleDelete}>
+                delete chat
+            </Button>
+            {
+                messageList[chatId]?.map((message) =>
+                    <Message text={message.text} author={message.author} key={message.id}/>)
+            }
+            <Form onSubmit={handleSubmit}/>
         </div>
-      </div>
-    </ThemeProvider>
-  );
+    )
 }
