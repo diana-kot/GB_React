@@ -1,5 +1,5 @@
 import React from "react";
-import { Message } from "../Message";
+import {Message}  from "../Message";
 import "../MessageList/style.scss";
 
 export const MessageList = ({ messages }) => {

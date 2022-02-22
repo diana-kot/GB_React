@@ -2,10 +2,10 @@ import {ADD_CHAT, DELETE_CHAT} from "../../store/actionCreators/chats";
 
 const initialState = {
     chats: [
-        {id: 'chat1', name: 'Friends'},
-        {id: 'chat2', name: 'Fam'},
-        {id: 'chat3', name: 'Besties'},
-        {id: 'chat4', name: 'Nick'},
+        {id: 'chat1', name: 'Alex', avatar: '/img/avatar/1.jpg'},
+        {id: 'chat2', name: 'Noah', avatar: '/img/avatar/2.jpg'},
+        {id: 'chat3', name: 'Liam', avatar: '/img/avatar/3.jpg'},
+        {id: 'chat4', name: 'Irina', avatar: '/img/avatar/5.jpg'},
     ]
 }
 
@@ -14,7 +14,8 @@ export const chatsReducer = (state = initialState, action) => {
         case ADD_CHAT: {
             return {
                 ...state,
-                chats: [...state.chats, {id: action.id, name: action.name}]
+                chats: [...state.chats, {id: action.id, name: action.name,
+                avatar: action.avatar}]
             }
         }
         case DELETE_CHAT: {
