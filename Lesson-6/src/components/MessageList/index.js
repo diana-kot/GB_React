@@ -4,8 +4,8 @@ import "../MessageList/style.scss";
 
 export const MessageList = ({ messages }) => {
   return messages.map((message) => (
-    <div className="message-list" key={message.id}>
-      <Message text={message.text} author={message.author} />
+    <div className="message-list">
+      <Message text={message.text} author={message.author} key={message.id} />
     </div>
   ));
 };

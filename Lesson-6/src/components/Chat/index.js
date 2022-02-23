@@ -19,6 +19,8 @@ export const Chat = () => {
   const { chatId } = useParams();
   const navigate = useNavigate();
   const messagesEnd = useRef();
+
+
   const messageList = useSelector(messagesSelector);
 
   useEffect(() => {
@@ -51,19 +53,19 @@ export const Chat = () => {
     return navigate("../chats", { replace: true });
   }
 
-  const handleDelete = () => {
-    dispatch(deleteChatMessages(chatId));
-    dispatch(deleteChat(chatId));
-    navigate("/chats", { replace: true });
-  };
+  // const handleDelete = () => {
+  //   dispatch(deleteChatMessages(chatId));
+  //   dispatch(deleteChat(chatId));
+  //   navigate("/chats", { replace: true });
+  // };
   if (!messageList[chatId]) {
     return <Navigate to="/chats" replace />;
   }
   return (
     <div>
-      <Button aria-label="delete" onClick={handleDelete}>
+      {/* <Button aria-label="delete" onClick={handleDelete}>
         delete chat
-      </Button>
+      </Button> */}
 
       <div className="app-content">
         <MessageList messages={messageList[chatId]} />

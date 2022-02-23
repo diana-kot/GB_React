@@ -8,9 +8,9 @@ import List from "@material-ui/core/List/List";
 import { Link, Outlet } from "react-router-dom";
 import ListItem from "@material-ui/core/ListItem/ListItem";
 import { useDispatch, useSelector } from "react-redux";
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { addChat, deleteChat } from "../../store/actionCreators/chats";
-import {addMessage, deleteChatMessages} from "../../store/actionCreators/messages";
+import { addMessage, deleteChatMessages} from "../../store/actionCreators/messages";
 import { chatsSelector } from "../../store/selectors/chats";
 import Button from "@material-ui/core/Button/Button";
 import { Dialog, DialogContent, Modal, TextField } from "@material-ui/core";
@@ -20,6 +20,7 @@ const useStyles = makeStyles({
   list: {
     display: "flex",
     flexWrap: "wrap",
+    maxWidth: "300px",
   },
   listItem: {
     flexWrap: "wrap",
@@ -56,8 +57,8 @@ export const ChatList = () => {
 
   const chats = useSelector(chatsSelector);
 
-  const {chatId} = useParams()
-    const navigate = useNavigate()
+  const { chatId } = useParams();
+  const navigate = useNavigate();
   const handleOpen = () => {
     setOpen(true);
   };
@@ -78,17 +79,17 @@ export const ChatList = () => {
   };
 
   const handleDelete = () => {
-    dispatch(deleteChatMessages(chatId))
-    dispatch(deleteChat(chatId))
-    navigate('/chats', {replace: true})
-}
+    dispatch(deleteChatMessages(chatId));
+    dispatch(deleteChat(chatId));
+    navigate("/chats", { replace: true });
+  };
 
   return (
     <div>
       <div>
         <List className={classes.list}>
           <ListItem className={classes.listItem} button>
-            {chats.map(({ id, name, avatar, handleDelete }) => (
+            {chats.map(({ id, name, avatar }) => (
               <ListItem key={id}>
                 <Link to={`/chats/${id}`} className={classes.link}>
                   {name}
@@ -97,15 +98,14 @@ export const ChatList = () => {
                   <Avatar alt="Profile Picture" src={avatar} />
                 </ListItemAvatar>
                 <IconButton
-              aria-label="delete"
-              className={classes.deleteButton}
-              onClick={handleDelete}
-            >
-              <DeleteIcon fontSize="small" />
-            </IconButton>
+                  onClick={handleDelete}
+                  aria-label="delete"
+                  className={classes.deleteButton}
+                >
+                  <DeleteIcon fontSize="small" />
+                </IconButton>
               </ListItem>
             ))}
-            
           </ListItem>
         </List>
         <Button onClick={handleOpen}>add new chat</Button>
