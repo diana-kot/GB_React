@@ -1,0 +1,133 @@
+.area {
+	max-height: 280px;
+
+	overflow: hidden;
+
+	position: relative;
+}
+
+.friends {
+	display: block;
+	text-align: left;
+}
+.scrollarea .scrollbar-container {
+  position: absolute;
+  z-index: 9999;
+}
+.scrollarea .scrollbar-container.vertical {
+  height: 100%;
+  right: 0;
+  top: 0;
+}
+.scrollarea .scrollbar-container.vertical .scrollbar {
+  height: 20px;
+  margin-left: 1px;
+}
+.scrollarea-content {
+	width: calc(100% - 8px);
+
+	float: left;
+}
+.scrollarea-content:focus {
+	outline: 0;
+}
+
+.scrollbar-container {
+	width: 8px;
+	height: 100%;
+	border-radius: 3px;
+
+	background-color: #ededed;
+
+	float: right;
+
+	cursor: pointer;
+}
+
+.friend {
+	display: inline-block;
+
+	width: 50%;
+	box-sizing: border-box;
+
+	margin-bottom: 30px;
+}
+
+.friend__avatar {
+	display: inline-block;
+
+	width: 70px;
+	height: 70px;
+
+	overflow: hidden;
+
+	border-radius: 3px;
+
+	float: left;
+}
+
+.friend__avatar img {
+	width: auto;
+	height: 100%;
+}
+
+.friend__brief {
+	display: flex;
+	flex-direction: column;
+
+	float: right;
+
+	text-align: left;
+
+	height: 70px;
+	width: calc(100% - 70px);
+
+	vertical-align: top;
+
+	padding: 0 15px;
+	box-sizing: border-box;
+}
+
+.friend__name,
+.friend__city,
+.friend__online {
+	display: block;
+}
+
+.friend__name {
+	font: 700 .8rem/1rem arial;
+	color: #1575b1;
+}
+
+.friend__city {
+	font: .7rem/1.2rem arial;
+	color: #373737;
+}
+
+.friend__online {
+	margin-top: auto;
+
+	font: italic .7rem/1rem arial;
+	color: #6ca567;
+}
+
+@media screen and (max-width: 550px) {
+
+	body, html,
+	#root, .App, .visible {
+		height: 100%;
+	}
+
+	.area {
+		max-height: 100%;
+	}
+
+	.container {
+		height: calc(100% - 32px);
+	}
+
+	.friend {
+		width: 100%;
+	}
+
+}

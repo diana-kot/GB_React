@@ -1,6 +1,6 @@
 import { Provider} from "react-redux";
 import { Router } from "./components/Router";
-import {store} from "./store"
+import {store} from "./store/store"
 const App = () => (
   <Provider store={ store }>
     <Router></Router>
