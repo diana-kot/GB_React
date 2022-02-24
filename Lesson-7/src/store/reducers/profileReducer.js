@@ -1,4 +1,4 @@
-import { CHANGE_USER_NAME } from "../actions/profie";
+import { CHANGE_USER_NAME } from "../actionCreators/profile";
 
 const initialState = {
     userName: "Diana",

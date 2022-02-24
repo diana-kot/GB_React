@@ -1,4 +1,4 @@
-import {ADD_CHAT_MESSAGES, ADD_MESSAGE, DELETE_CHAT_MESSAGES} from "../actionCreators/messages";
+import {ADD_CHAT_MESSAGES, ADD_MESSAGE, DELETE_CHAT_MESSAGES, DELETE_MESSAGE} from "../actionCreators/messages";
 
 const initialState = {
   messages: {
@@ -8,10 +8,11 @@ const initialState = {
     ],
     chat2: [{ text: "Hello, Nick!", author: "me", id: `chat2-msg1` }],
     chat3: [
-      { text: "Hi, sisters!", author: "me", id: `chat3-msg1` },
+      { text: "Hi", author: "me", id: `chat3-msg1` },
       { text: "What are you doin?", author: "me", id: `chat3-msg2` },
     ],
     chat4: [{ text: "Good morning", author: "me", id: `chat4-msg1` }],
+    chat5: [{ text: "Good morning", author: "me", id: `chat4-msg1` }],
   },
 };
 
@@ -23,6 +24,13 @@ export const messagesReducer = (state = initialState, action) => {
         messages: { ...state.messages, [action.id]: [] },
       };
     }
+    // case DELETE_MESSAGE: {
+    //   return {
+    //     ...state,
+    //     [action.idchat]: state.messages[action.idchat].filter(message => message.id !== action.delete),
+    //     };
+    // }
+
     case DELETE_CHAT_MESSAGES: {
       delete state.messages[action.id];
       return {
