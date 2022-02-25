@@ -1,0 +1,40 @@
+
+.mes__content{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    margin-left: 450px;
+    margin-top: 150px;
+}
+.mes__input{
+    display: flex;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 2px solid #eee;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    border-radius:10px;
+    width: 100%;
+    transition: all 0.5s ease 0s;
+    &:focus {
+        outline: none;
+        border-bottom: 2px solid gray;
+        color: black;
+      }
+}
+.mes__button {
+    padding:10px;
+    border:none;
+    background-color:#3F51B5;
+    color:#fff;
+    font-weight:600;
+    border-radius:10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease 0s;
+  &:hover {
+    background-color: #0b1966;
+  }
+
+  .MuiOutlinedInput-input {
+    height: 820px;
+  } 
+}
