@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Avatar from "@mui/material/Avatar";
 
+import { logout } from "../../services/firebase";
 
 
 import { changeUserName } from "../../store/actionCreators/profile";
@@ -22,11 +23,22 @@ function Profile() {
     dispatch(changeUserName(value));
   }, [dispatch, value]);
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (e) {
+      console.warn(e);
+    }
+  };
+
   return (
     <div className="profile-page">
     <div className="profile-info">
         <h2>Profile</h2>
         <Avatar sizes="large" src="/broken-image.jpg" />
+        <div>
+        <button onClick={handleLogout}>LOGOUT</button>
+      </div>
         <div className="profile-age name">
         <div variant="span" style={{ fontWeight: 700 }}>Name: </div>
         <div>{ userName }</div>
