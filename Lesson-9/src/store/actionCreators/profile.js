@@ -1,6 +1,6 @@
-export const CHANGE_USER_NAME = "PROFILE::CHANGE_USER_NAME"
+export const CHANGE_NAME = "PROFILE::CHANGE_NAME"
 
-export const changeUserName = (payload) => ({
-  type: CHANGE_USER_NAME,
-  payload,   
-})
+export const changeName = (newName) => ({
+  type: CHANGE_NAME,
+  name: newName,
+});

@@ -1,14 +1,15 @@
 .list {
   display: flex;
+  align-items: center;
+  text-decoration: none;
   flex-wrap: wrap;
-  max-width: 300px;
+  width: 600px;
 }
 .listItem {
   flex-wrap: wrap;
-  width: calc(33.333% - 40px);
-  min-width: 300px;
-  margin: 20px;
   padding: 25px;
+  font-size: 20px;
+  
 }
 .link {
   font-size: 0.8em;
@@ -22,6 +23,9 @@
   height: 33px;
   border-radius: 10px;
   background: #490b52;
+ justify-content: flex-start;
+ padding: 0px 15px;
+ margin-right: 20px;
 }
 .deleteButton {
   margin: 0 0 0 10px;

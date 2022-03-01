@@ -1,27 +1,31 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import Avatar from "@mui/material/Avatar";
+import { FormName } from "../FormName/index";
+import { logout, getProfileNameRef, auth } from "../../services/firebase";
 
-import { logout } from "../../services/firebase";
-
-
-import { changeUserName } from "../../store/actionCreators/profile";
+import { changeName } from "../../store/actionCreators/profile";
 import { profileSelector } from "../../store/selectors/profile";
-import "./Profile.scss"
+import "./Profile.scss";
+import { onValue, set } from "firebase/database";
 
 function Profile() {
   const dispatch = useDispatch();
+  const [name, setName] = useState("");
 
-  const { userName, age } = useSelector(profileSelector);
-  const [value, setValue] = useState("");
+  const { age } = useSelector(profileSelector);
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
+  const handleChangeName = (text) => {
+    // dispatch(changeName(text));
+    set(getProfileNameRef(auth.currentUser.uid), text);
   };
 
-  const setUserName = useCallback(() => {
-    dispatch(changeUserName(value));
-  }, [dispatch, value]);
+  // useEffect(() => {
+  //   onValue(profileRef, (snapshot) => {
+  //     setName(snapshot.val());
+  //   });
+  // }, []);
 
   const handleLogout = async () => {
     try {
@@ -33,27 +37,29 @@ function Profile() {
 
   return (
     <div className="profile-page">
-    <div className="profile-info">
+      <div className="profile-info">
         <h2>Profile</h2>
         <Avatar sizes="large" src="/broken-image.jpg" />
-        <div>
-        <button onClick={handleLogout}>LOGOUT</button>
-      </div>
+
         <div className="profile-age name">
-        <div variant="span" style={{ fontWeight: 700 }}>Name: </div>
-        <div>{ userName }</div>
+          <div variant="span" style={{ fontWeight: 700 }}>
+            Name:{" "}
+          </div>
+          <div>{name}</div>
         </div>
         <div className="profile-age">
-        <div variant="span" style={{ fontWeight: 700 }}>Age: </div>
-        <div variant="span">{age}</div>
+          <div variant="span" style={{ fontWeight: 700 }}>
+            Age:{" "}
+          </div>
+          <div variant="span">{age}</div>
         </div>
-       
-        <div className="acount-rename">
-            <input value={value} onChange={handleChange} type="text" />
-            <button className="rename-btn" onClick={setUserName}>Rename</button>
+
+        <FormName onSubmit={handleChangeName} />
+        <div>
+          <button onClick={handleLogout}>LOGOUT</button>
         </div>
+      </div>
     </div>
-</div>
   );
 }
 

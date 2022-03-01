@@ -13,18 +13,18 @@ import "./style.scss";
 
 
 
-export const Chats = ({chats, open, handleDelete, name, handleOpen, handleClose, handleSubmit,handleChange }) => (
+export const Chats = ({chats, open, handleDelete, name, handleOpen, handleClose, handleSubmit, handleChange }) => (
   <div>
     <div>
       <List className="list">
         <ListItem className="listItem" button>
-          {chats.map(({ id, name, avatar }) => (
-            <ListItem key={id}>
-              <Link to={`/chats/${id}`} className="link">
-                {name}
+          {chats.map((chat) => (
+            <ListItem key={chat.id} chat={chat}>
+              <Link to={`/chats/${chat.id}`}  className="link">
+                {chat.name}
               </Link>
               <ListItemAvatar>
-                <Avatar alt="Profile Picture" src={avatar} />
+                <Avatar alt="Profile Picture" src={chat.avatar} />
               </ListItemAvatar>
               <IconButton
                 onClick={handleDelete}

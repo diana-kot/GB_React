@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import "../Form/style.scss";
+import "./style.scss";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";

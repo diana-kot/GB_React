@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import { Form } from "../Form/index";
 import { MessageList } from "../MessageList";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,11 +10,10 @@ import "./style.scss";
 
 export const Chat = () => {
   const dispatch = useDispatch();
-  const { chatId } = useParams();
-  const navigate = useNavigate();
-  const messagesEnd = useRef();
-
   const messageList = useSelector(messagesSelector);
+
+  const { chatId } = useParams();
+  const messagesEnd = useRef();
 
   useEffect(() => {
     messagesEnd.current?.scrollIntoView();
