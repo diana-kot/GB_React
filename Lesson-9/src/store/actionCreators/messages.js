@@ -10,9 +10,9 @@ export const ADD_MESSAGE = "MESSAGES::ADD_MESSAGE";
 export const DELETE_MESSAGE = "MESSAGES::DELETE_MESSAGE";
 export const EDIT_MESSAGE = "MESSAGES::EDIT_MESSAGE";
 
-export const addMessage = (chatId, newMessage) => ({
+export const addMessage = (chatId, newMsg) => ({
   type: ADD_MESSAGE,
-  payload: { chatId, newMessage },
+  payload: { chatId, newMsg },
 });
 
 export const deleteMessage = (chatId, idToDelete) => ({
@@ -49,18 +49,18 @@ export const addMessageWithThunk =
     }
   };
 
-export const initMessageTracking = (chatId) => (dispatch) => {
-  onChildAdded(getMessageListRefByChatId(chatId), (snapshot) => {
-    dispatch(addMessage(chatId, snapshot.val().newMessage));
-  });
+// export const initMessageTracking = (chatId) => (dispatch) => {
+//   onChildAdded(getMessageListRefByChatId(chatId), (snapshot) => {
+//     dispatch(addMessage(chatId, snapshot.val().newMessage));
+//   });
 
-  onChildRemoved(getMessageListRefByChatId(chatId), (snapshot) => {
-    dispatch(deleteMessage(chatId, snapshot.val().id));
-  });
+//   onChildRemoved(getMessageListRefByChatId(chatId), (snapshot) => {
+//     dispatch(deleteMessage(chatId, snapshot.val().id));
+//   });
 
-  onChildChanged(getMessageListRefByChatId(chatId), (snapshot) => {
-    dispatch(
-      editMessage(chatId, snapshot.val().idToEdit, snapshot.val().newText)
-    );
-  });
-};
+//   onChildChanged(getMessageListRefByChatId(chatId), (snapshot) => {
+//     dispatch(
+//       editMessage(chatId, snapshot.val().idToEdit, snapshot.val().newText)
+//     );
+//   });
+// };

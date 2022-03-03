@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router";
 import { Message } from "../Message";
 import "../MessageList/style.scss";
-import { getMessageRefById} from "../../services/firebase";
+import { getMessageRefById, } from "../../services/firebase";
 import {
   deleteMessage,
   editMessage,
@@ -16,12 +16,13 @@ export const MessageList = ({ messages }) => {
   const dispatch = useDispatch();
 
   const handleDelete = (id) => {
-    dispatch(deleteMessage(chatId, id));
-    // remove(getMessageRefById(chatId, id));
+    //dispatch(deleteMessage(chatId, id));
+    remove(getMessageRefById(chatId, id));
   };
 
   const handleEdit = async (id, text) => {
-    // await set(getMessageTextRefById((chatId, id), text));
+    dispatch(editMessage(chatId, id, "edited"));
+    
   };
 
   return messages.map((message) => (

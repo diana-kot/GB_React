@@ -15,12 +15,11 @@ import IconButton from "@mui/material/IconButton";
 import { Form } from "../FormItem/index";
 import "./style.scss";
 import { onValue, onChildRemoved, onChildAdded, set, remove } from "@firebase/database";
+
 import {
   chatsRef,
   getChatsRefById,
-  getMessageRefById,
-  getMessagesRefByChatId,
-  getMessageListRefByChatId
+ 
 } from "../../services/firebase";
 
 import { selectChats } from "../../store/selectors/chats";
