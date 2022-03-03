@@ -25,7 +25,7 @@ function Profile() {
   //   onValue(profileRef, (snapshot) => {
   //     setName(snapshot.val());
   //   });
-  // }, []);
+  // }, []); 
 
   const handleLogout = async () => {
     try {
