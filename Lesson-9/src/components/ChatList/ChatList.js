@@ -45,7 +45,6 @@ export const ChatList = () => {
     const unsubscribe = onChildAdded(chatsRef, (snapshot) => {
       setChats((prevChats) => [...prevChats, snapshot.val()]);
     });
-
     return unsubscribe;
   }, []);
 
