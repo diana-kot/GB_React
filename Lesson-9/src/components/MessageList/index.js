@@ -21,7 +21,7 @@ export const MessageList = ({ messages }) => {
   };
 
   const handleEdit = async (id, text) => {
-    dispatch(editMessage(chatId, id, "edited"));
+    // dispatch(editMessage(chatId, id, "edited"));
     
   };
 

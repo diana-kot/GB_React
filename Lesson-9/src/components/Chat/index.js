@@ -1,15 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import { Form } from "../Form/index";
 import { MessageList } from "../MessageList";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { messagesSelector } from "../../store/selectors/messages";
-import { addMessageWithThunk } from "../../store/actionCreators/messages";
-import { AUTHORS } from "../../utils/constants";
+import { addMessageWithThunk} from "../../store/actionCreators/messages";
 import "./style.scss";
-import {initMessageTracking} from "../../store/actionCreators/messages";
-import { getMessageListRefByChatId, getMessagesRefByChatId, getMessageRefById } from '../../services/firebase';
 
 import {
   onChildAdded,
@@ -18,29 +15,36 @@ import {
   push,
   set,
 } from "@firebase/database";
+import {
+  getMessageListRefByChatId,
+  getMessageRefById,
+  getMessagesRefByChatId,
+} from "../../services/firebase";
 
-export function Chat() {
-  const { chatId } = useParams();
-
-  // const messages = useSelector(selectMessages);
-  const [messages, setMessages] = useState([]);
+export const Chat = () => {
   const dispatch = useDispatch();
+  // const messageList = useSelector(messagesSelector);
 
+  const [messages, setMessages] = useState([]);
+
+  const { chatId } = useParams();
   const messagesEnd = useRef();
 
-  const handleAddMessage = (text) => {
-    sendMessage(text, AUTHORS.ME);
-  };
+  useEffect(() => {
+    messagesEnd.current?.scrollIntoView();
+  }, [messages]);
 
-  const sendMessage = (text, author) => {
+
+
+  const handleSubmit = (messageText) => {
     const newMsg = {
-      text,
-      author,
+      text: messageText,
+      author: "me",
       id: `msg-${Date.now()}`,
-    };
-    // dispatch(addMessageWithThunk(chatId, newMsg));
+    }
     set(getMessageRefById(chatId, newMsg.id), newMsg);
   };
+
   useEffect(() => {
     const unsubscribe = onValue(getMessagesRefByChatId(chatId), (snapshot) => {
       if (!snapshot.val()?.empty) {
@@ -55,7 +59,6 @@ export function Chat() {
     const unsubscribe = onChildAdded(
       getMessageListRefByChatId(chatId),
       (snapshot) => {
-        console.log(snapshot.val());
         setMessages((prevMessages) => [...prevMessages, snapshot.val()]);
       }
     );
@@ -67,7 +70,6 @@ export function Chat() {
     const unsubscribe = onChildRemoved(
       getMessageListRefByChatId(chatId),
       (snapshot) => {
-        console.log(snapshot.val());
         setMessages((prevMessages) =>
           prevMessages.filter(({ id }) => id !== snapshot.val()?.id)
         );
@@ -77,23 +79,20 @@ export function Chat() {
     return unsubscribe;
   }, [chatId]);
 
-  useEffect(() => {
-    messagesEnd.current?.scrollIntoView();
-  }, [messages]);
-
+  
   if (!messages) {
     return <Navigate to="/chats" replace />;
   }
 
+  
     return (
-        <div>
+      <div>
         <div className="app-content">
           <MessageList messages={messages} />
+          <div ref={messagesEnd}></div>
         </div>
-        <Form onSubmit={handleAddMessage} />
+        <Form onSubmit={handleSubmit} />
       </div>
-      
-    
-  )
-    
+    );
+  
 };

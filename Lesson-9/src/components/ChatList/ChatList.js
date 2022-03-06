@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
+import { DeleteButton } from "./DeleteButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Avatar from "@material-ui/core/Avatar";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
@@ -19,6 +20,7 @@ import { onValue, onChildRemoved, onChildAdded, set, remove } from "@firebase/da
 import {
   chatsRef,
   getChatsRefById,
+  getMessagesRefByChatId
  
 } from "../../services/firebase";
 
@@ -27,28 +29,38 @@ import { addChat, deleteChat, initChatsTracking } from "../../store/actionCreato
 import {initMessageTracking} from "../../store/actionCreators/messages";
 
 export const ChatList = () => {
-  const chats = useSelector(selectChats);
-  const [chatList, setChatList] = useState([]);
+  // const chats = useSelector(selectChats);
+  const [chats, setChats] = useState([])
   const dispatch = useDispatch();
 
 
   const handleAddChat = (newChatName) => {
-    const newId = `chat${Date.now()}`;
-    // dispatch(addChat(newId, newChatName));
+    const newId = `chat-${Date.now()}`;
     set(getChatsRefById(newId), {id: newId, name: newChatName} );
-    // set(getMessagesRefByChatId(newId), {empty: true})
+    set(getMessagesRefByChatId(newId), {empty: true})
     
   };
 
-  const handleDeleteChat = (id) => {
-    // dispatch(deleteChat(id));
-    // set(getChatsRefById(id), null)
-    remove(getChatsRefById(id))
-    // remove(getMessageListRefByChatId(id))
-  };
+  useEffect(() => {
+    const unsubscribe = onChildAdded(chatsRef, (snapshot) => {
+      setChats((prevChats) => [...prevChats, snapshot.val()]);
+    });
+
+    return unsubscribe;
+  }, []);
 
   useEffect(() => {
     dispatch(initChatsTracking());
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = onChildRemoved(chatsRef, (snapshot) => {
+      setChats((prevChats) =>
+        prevChats.filter(({ id }) => id !== snapshot.val()?.id)
+      );
+    });
+
+    return unsubscribe;
   }, []);
 
   // useEffect(() => dispatch(initMessageTracking()), []);
@@ -57,7 +69,7 @@ export const ChatList = () => {
     <>
       <div>
         <List className="list">
-          <ListItem className="listItem">
+          <div className="listItem">
             {chats.map((chat) => (
               <ListItem key={chat.id}>
                 <Link to={`/chats/${chat.id}`} className="link">
@@ -66,16 +78,10 @@ export const ChatList = () => {
                 <ListItemAvatar>
                   <Avatar alt="Profile Picture" src={chat.avatar} />
                 </ListItemAvatar>
-                <IconButton
-                  onClick={() => handleDeleteChat(chat.id)}
-                  aria-label="delete"
-                  className="deleteButton"
-                >
-                  <DeleteIcon fontSize="small" />
-                </IconButton>
+                <DeleteButton id={chat.id} />
               </ListItem>
             ))}
-          </ListItem>
+          </div>
         </List>
         <Form onSubmit={handleAddChat} />
       </div>
