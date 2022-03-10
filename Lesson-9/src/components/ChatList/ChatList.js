@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useParams, useNavigate } from 'react-router-dom';
 import { DeleteButton } from "./DeleteButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Avatar from "@material-ui/core/Avatar";
@@ -24,14 +24,15 @@ import {
  
 } from "../../services/firebase";
 
-import { selectChats } from "../../store/selectors/chats";
+import { getChatList } from "../../store/selectors/chats";
 import { addChat, deleteChat, initChatsTracking } from "../../store/actionCreators/chats";
-import {initMessageTracking} from "../../store/actionCreators/messages";
+
 
 export const ChatList = () => {
-  // const chats = useSelector(selectChats);
-  const [chats, setChats] = useState([])
+  const chats = useSelector(getChatList);
+  const chatId = useParams().chatId;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
 
   const handleAddChat = (newChatName) => {
@@ -42,27 +43,16 @@ export const ChatList = () => {
   };
 
   useEffect(() => {
-    const unsubscribe = onChildAdded(chatsRef, (snapshot) => {
-      setChats((prevChats) => [...prevChats, snapshot.val()]);
-    });
-    return unsubscribe;
-  }, []);
+    if (!chats.find(el => el.id == chatId)) {
+        return navigate("/chats");
+    }
+}, [chatId]);
 
   useEffect(() => {
     dispatch(initChatsTracking());
   }, []);
 
-  useEffect(() => {
-    const unsubscribe = onChildRemoved(chatsRef, (snapshot) => {
-      setChats((prevChats) =>
-        prevChats.filter(({ id }) => id !== snapshot.val()?.id)
-      );
-    });
-
-    return unsubscribe;
-  }, []);
-
-  // useEffect(() => dispatch(initMessageTracking()), []);
+  
 
   return (
     <>
