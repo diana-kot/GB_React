@@ -1,4 +1,4 @@
 export const getMessages = state => state.messages
-export function getMessagesById(id) {
-    return (state) => state.messages?.[id];
-} 
+export const getMessagesById  = id => state => state.messages[id];
+
+

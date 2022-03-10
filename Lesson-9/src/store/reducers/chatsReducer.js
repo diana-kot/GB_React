@@ -1,17 +1,25 @@
-import {ADD_CHAT, DELETE_CHAT} from "../../store/actionCreators/chats";
+import { ADD_CHAT, DELETE_CHAT } from "../../store/actionCreators/chats";
 
-const initialState = [];
+const initialState = {};
 
-export const chatsReducer = (state = initialState, action) => {
-  switch (action.type) {
+export const chatsReducer = (state = initialState, { type, payload }) => {
+  switch (type) {
     case ADD_CHAT: {
-      return [...state, {id: action.payload.id, name: action.payload.name}];
+      return {
+        ...state,
+        [payload.id]: {
+          name: payload.name,
+          id: payload.id,
+          messages: [],
+        },
+      };
     }
     case DELETE_CHAT: {
-      return state.filter(({id}) => id !== action.payload);
+      const newStoreState = {...state};
+			delete newStoreState[payload.id];
+			return newStoreState;
     }
     default:
       return state;
   }
 };
-

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, Navigate } from "react-router-dom";
 import { DeleteButton } from "./DeleteButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Avatar from "@material-ui/core/Avatar";
@@ -15,44 +15,48 @@ import IconButton from "@mui/material/IconButton";
 
 import { Form } from "../FormItem/index";
 import "./style.scss";
-import { onValue, onChildRemoved, onChildAdded, set, remove } from "@firebase/database";
+import {
+  onValue,
+  onChildRemoved,
+  onChildAdded,
+  set,
+  remove,
+} from "@firebase/database";
 
 import {
   chatsRef,
   getChatsRefById,
-  getMessagesRefByChatId
- 
+  getMessagesRefByChatId,
 } from "../../services/firebase";
 
-import { getChatList } from "../../store/selectors/chats";
-import { addChat, deleteChat, initChatsTracking } from "../../store/actionCreators/chats";
-
+import { getChatList } from "../../store/chat/chats";
+import {
+  addChat,
+  deleteChat,
+  initChatsTracking,
+} from "../../store/chat/Action";
 
 export const ChatList = () => {
   const chats = useSelector(getChatList);
   const chatId = useParams().chatId;
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
 
   const handleAddChat = (newChatName) => {
     const newId = `chat-${Date.now()}`;
-    set(getChatsRefById(newId), {id: newId, name: newChatName} );
-    set(getMessagesRefByChatId(newId), {empty: true})
-    
+    set(getChatsRefById(newId), { id: newId, name: newChatName });
+    set(getMessagesRefByChatId(newId), { empty: true });
   };
 
   useEffect(() => {
-    if (!chats.find(el => el.id == chatId)) {
-        return navigate("/chats");
+    if (!chats) {
+      return <Navigate to="/chats" replace />;
     }
-}, [chatId]);
+  }, [chatId]);
 
   useEffect(() => {
     dispatch(initChatsTracking());
   }, []);
-
-  
 
   return (
     <>

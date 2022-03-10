@@ -5,8 +5,8 @@ import Avatar from "@mui/material/Avatar";
 import { FormName } from "../FormName/index";
 import { logout, getProfileNameRef, auth } from "../../services/firebase";
 
-import { changeName } from "../../store/actionCreators/profile";
-import { profileSelector } from "../../store/selectors/profile";
+import { changeName } from "../../store/profile/action";
+import { profileSelector } from "../../store/profile/profile";
 import "./Profile.scss";
 import { onValue, set } from "firebase/database";
 

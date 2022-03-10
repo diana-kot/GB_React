@@ -3,9 +3,9 @@ import thunk from "redux-thunk";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
-import profileReducer from "../store/reducers/profileReducer";
-import { chatsReducer } from "../store/reducers/chatsReducer";
-import { messagesReducer } from "../store/reducers/messages";
+import profileReducer from "./profile/profileReducer";
+import { chatsReducer } from "./chat/chatsReducer";
+import { messagesReducer } from "./message/messages";
 import { articlesReducer } from "./articles/reducer";
 
 const rootReducer = combineReducers({
