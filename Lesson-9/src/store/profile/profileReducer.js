@@ -10,7 +10,7 @@ const profileReducer = (state = initialState, action) => {
         case CHANGE_NAME:{
             return{
                 ...state,
-                name: action.name,
+                name: action.payload.name,
             }
         }
         default:

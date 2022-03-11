@@ -1,31 +1,43 @@
 import React, { useState, useCallback, useEffect } from "react";
-
+import { Button, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import Avatar from "@mui/material/Avatar";
-import { FormName } from "../FormName/index";
-import { logout, getProfileNameRef, auth } from "../../services/firebase";
-
-import { changeName } from "../../store/profile/action";
+import {
+  logout,
+  getProfileNameRef,
+  profileRef,
+  auth,
+} from "../../services/firebase";
+import { get } from "firebase/database";
+import { changeNameWithThunk } from "../../store/profile/action";
 import { profileSelector } from "../../store/profile/profile";
 import "./Profile.scss";
 import { onValue, set } from "firebase/database";
+import { userNameSelector } from "../../store/profile/profile";
 
 function Profile() {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
-
+  const [valueName, setvalueName] = useState();
   const { age } = useSelector(profileSelector);
 
-  const handleChangeName = (text) => {
-    // dispatch(changeName(text));
-    set(getProfileNameRef(auth.currentUser.uid), text);
+  const handleChangeName = () => {
+    setvalueName("");
+    setName(valueName);
+    dispatch(changeNameWithThunk(valueName));
   };
 
-  // useEffect(() => {
-  //   onValue(profileRef, (snapshot) => {
-  //     setName(snapshot.val());
-  //   });
-  // }, []); 
+  const handleChange = (e) => {
+    setvalueName(e.target.value);
+  };
+
+  useEffect(() => {
+    get(getProfileNameRef(auth.currentUser.uid)).then((snapshot) => {
+      setName(snapshot.val());
+    });
+  }, []);
+
+
 
   const handleLogout = async () => {
     try {
@@ -53,11 +65,25 @@ function Profile() {
           </div>
           <div variant="span">{age}</div>
         </div>
+        <TextField
+          onChange={handleChange}
+          value={valueName}
+          type="text"
+          id="filled-basic"
+          label="Введите новое имя"
+          variant="filled"
+        />
+        <br />
 
-        <FormName onSubmit={handleChangeName} />
-        <div>
-          <button onClick={handleLogout}>LOGOUT</button>
-        </div>
+        <Button variant="contained" type="submit" onClick={handleChangeName}>
+          Rename
+        </Button>
+        <br />
+        <br />
+
+        <Button onClick={handleLogout} variant="outlined">
+          LOGOUT
+        </Button>
       </div>
     </div>
   );
