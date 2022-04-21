@@ -1,0 +1,33 @@
+.header{
+    background:#3294cd;
+}
+.header-content{
+  
+}
+.right-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.user-name{
+    padding-right: 20px;
+}
+.MuiAvatar-root{
+    cursor: pointer;
+}
+
+.container{
+    color: aliceblue;
+}
+
+@media (min-width: 600px) {
+    .css-1t29gy6-MuiToolbar-root {
+        display: flex;
+        gap: 64px;
+    }
+}
+
+.css-1t29gy6-MuiToolbar-root {
+    display: flex;
+    gap: 74px;
+}

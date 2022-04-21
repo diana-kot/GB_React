@@ -1,0 +1,32 @@
+.list {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-wrap: wrap;
+  width: 600px;
+}
+.listItem {
+  flex-wrap: wrap;
+  padding: 25px;
+  font-size: 20px;
+  
+}
+.link {
+  font-size: 0.8em;
+  text-decoration: none;
+  text-align: center;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  height: 33px;
+  border-radius: 10px;
+  background: #490b52;
+ justify-content: flex-start;
+ padding: 0px 15px;
+ margin-right: 20px;
+}
+.deleteButton {
+  margin: 0 0 0 10px;
+}

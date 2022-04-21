@@ -1,0 +1,24 @@
+.typeform {
+ 
+  margin: 5px 14px 7px;
+  display: flex;
+  max-width: 500px;
+}
+
+.typeform__input .MuiInputBase-root {
+  width: 95%;
+  border-radius: 5px;
+
+  background-color: white;
+  box-sizing: border-box;
+  font-size: 0.65em;
+  font-size: 16px;
+}
+
+.typeform__submit.MuiButtonBase-root {
+  border-radius: 5px;
+  padding: 0 5px;
+  font-size: 0.65em;
+  min-width: 46px;
+  font-size: 14px;
+}

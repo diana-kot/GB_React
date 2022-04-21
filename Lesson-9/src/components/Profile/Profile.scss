@@ -1,0 +1,35 @@
+.profile-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    margin-top: 20px;
+    padding: 25px 30px 180px 30px;
+}
+
+.acount-rename{
+    display: flex;
+    flex-direction: column;
+}
+.rename-btn{
+    background: #328fcd;
+    border: none;
+    border-radius: 15px;
+    height: 30px;
+    flex-wrap: wrap;
+    padding-right: 20px 30px 20px 30px;
+    margin-top: 35px;
+    cursor: pointer;
+
+}
+
+.profile-age {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+.name {
+    margin-top: 30px;
+}
