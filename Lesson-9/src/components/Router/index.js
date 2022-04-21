@@ -9,6 +9,8 @@ import { ChatList } from "../ChatList/ChatList";
 import Articles from "../Articles/Articles";
 import Profile from "../Profile/Profile";
 
+import { REPO_NAME } from "../../utils/repo";
+
 import "../Router/style.scss";
 
 import { MenuItem } from "@mui/material";
@@ -40,7 +42,7 @@ export const Router = () => {
 
   return (
     <div>
-      <BrowserRouter>
+      <BrowserRouter basename={`/${REPO_NAME}/`}> 
         <Box sx={{ flexGrow: 1 }}>
           <AppBar position="static">
             <div className="container">
